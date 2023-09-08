@@ -1,2 +1,2 @@
 # Hai!
-Halo, ini merupakan repositori untuk Tugas GIT Dibimbing Kelompok 11.
+Halo, ini merupakan repositori untuk Tugas GIT Dibimbing kelompok sebelas.
