@@ -1,0 +1,25 @@
+# Kelompok 11 - Dibimbing
+# Dimas Wahyu Saputro
+# Fionjufo Fahrezi
+# Chintya Dewi Prawitasuri
+# Dhevita Intan
+# Navi Latul Ulya
+
+version: '4'
+services:
+  app:
+    build:
+      context: ./python-app
+    volumes:
+      - ./python-app:/app
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: kel11
+      POSTGRES_PASSWORD: kelompok11
+      POSTGRES_DB: kel11
+    ports:
+      - "5432:5432"
