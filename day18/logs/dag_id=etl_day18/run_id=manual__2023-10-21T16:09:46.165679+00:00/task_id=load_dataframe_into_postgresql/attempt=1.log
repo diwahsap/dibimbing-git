@@ -1,0 +1,22 @@
+[2023-10-21T16:10:03.412+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-21T16:09:46.165679+00:00 [queued]>
+[2023-10-21T16:10:03.436+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-21T16:09:46.165679+00:00 [queued]>
+[2023-10-21T16:10:03.437+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-10-21T16:10:03.468+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): load_dataframe_into_postgresql> on 2023-10-21 16:09:46.165679+00:00
+[2023-10-21T16:10:03.478+0000] {standard_task_runner.py:57} INFO - Started process 4973 to run task
+[2023-10-21T16:10:03.486+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'etl_day18', 'load_dataframe_into_postgresql', 'manual__2023-10-21T16:09:46.165679+00:00', '--job-id', '104', '--raw', '--subdir', 'DAGS_FOLDER/ETL_day18.py', '--cfg-path', '/tmp/tmpebgaf1l4']
+[2023-10-21T16:10:03.493+0000] {standard_task_runner.py:85} INFO - Job 104: Subtask load_dataframe_into_postgresql
+[2023-10-21T16:10:03.602+0000] {task_command.py:415} INFO - Running <TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-21T16:09:46.165679+00:00 [running]> on host 90cf752d844d
+[2023-10-21T16:10:03.817+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='kel11' AIRFLOW_CTX_DAG_ID='etl_day18' AIRFLOW_CTX_TASK_ID='load_dataframe_into_postgresql' AIRFLOW_CTX_EXECUTION_DATE='2023-10-21T16:09:46.165679+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-10-21T16:09:46.165679+00:00'
+[2023-10-21T16:10:03.871+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_day18.py", line 97, in load_dataframe_into_postgresql
+    from sqlalchemy import URL, create_engine
+ImportError: cannot import name 'URL' from 'sqlalchemy' (/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/__init__.py)
+[2023-10-21T16:10:03.886+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=etl_day18, task_id=load_dataframe_into_postgresql, execution_date=20231021T160946, start_date=20231021T161003, end_date=20231021T161003
+[2023-10-21T16:10:03.912+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 104 for task load_dataframe_into_postgresql (cannot import name 'URL' from 'sqlalchemy' (/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/__init__.py); 4973)
+[2023-10-21T16:10:03.962+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-10-21T16:10:03.985+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

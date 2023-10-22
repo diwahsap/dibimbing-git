@@ -1,0 +1,50 @@
+[2023-10-21T15:02:58.951+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_day18.fetch_data_from_psql manual__2023-10-21T15:02:48.478710+00:00 [queued]>
+[2023-10-21T15:02:58.967+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_day18.fetch_data_from_psql manual__2023-10-21T15:02:48.478710+00:00 [queued]>
+[2023-10-21T15:02:58.967+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-10-21T15:02:58.986+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): fetch_data_from_psql> on 2023-10-21 15:02:48.478710+00:00
+[2023-10-21T15:02:58.995+0000] {standard_task_runner.py:57} INFO - Started process 3610 to run task
+[2023-10-21T15:02:59.005+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'etl_day18', 'fetch_data_from_psql', 'manual__2023-10-21T15:02:48.478710+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/ETL_day18.py', '--cfg-path', '/tmp/tmp85078gu9']
+[2023-10-21T15:02:59.009+0000] {standard_task_runner.py:85} INFO - Job 12: Subtask fetch_data_from_psql
+[2023-10-21T15:02:59.073+0000] {task_command.py:415} INFO - Running <TaskInstance: etl_day18.fetch_data_from_psql manual__2023-10-21T15:02:48.478710+00:00 [running]> on host 90cf752d844d
+[2023-10-21T15:02:59.166+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='kel11' AIRFLOW_CTX_DAG_ID='etl_day18' AIRFLOW_CTX_TASK_ID='fetch_data_from_psql' AIRFLOW_CTX_EXECUTION_DATE='2023-10-21T15:02:48.478710+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-10-21T15:02:48.478710+00:00'
+[2023-10-21T15:02:59.176+0000] {base.py:73} INFO - Using connection ID 'postgresql_db' for task execution.
+[2023-10-21T15:03:01.310+0000] {warnings.py:109} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/common/sql/hooks/sql.py:219: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  return psql.read_sql(sql, con=conn, params=parameters, **kwargs)
+
+[2023-10-21T15:03:01.396+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 2202, in execute
+    cur.execute(sql, *args)
+psycopg2.errors.UndefinedTable: relation "public.latest" does not exist
+LINE 1: SELECT * FROM public.latest
+                      ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_day18.py", line 66, in fetch_data_from_psql
+    exist_data = hook.get_pandas_df(sql_query)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 219, in get_pandas_df
+    return psql.read_sql(sql, con=conn, params=parameters, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 635, in read_sql
+    return pandas_sql.read_query(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 2266, in read_query
+    cursor = self.execute(sql, params)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 2214, in execute
+    raise ex from exc
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT * FROM public.latest': relation "public.latest" does not exist
+LINE 1: SELECT * FROM public.latest
+                      ^
+
+[2023-10-21T15:03:01.423+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=etl_day18, task_id=fetch_data_from_psql, execution_date=20231021T150248, start_date=20231021T150258, end_date=20231021T150301
+[2023-10-21T15:03:01.462+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 12 for task fetch_data_from_psql (Execution failed on sql 'SELECT * FROM public.latest': relation "public.latest" does not exist
+LINE 1: SELECT * FROM public.latest
+                      ^
+; 3610)
+[2023-10-21T15:03:01.495+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-10-21T15:03:01.525+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

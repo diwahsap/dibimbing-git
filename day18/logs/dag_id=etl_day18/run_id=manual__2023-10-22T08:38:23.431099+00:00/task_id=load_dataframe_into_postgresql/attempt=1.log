@@ -1,0 +1,32 @@
+[2023-10-22T08:38:40.816+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:38:23.431099+00:00 [queued]>
+[2023-10-22T08:38:40.833+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:38:23.431099+00:00 [queued]>
+[2023-10-22T08:38:40.833+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-10-22T08:38:40.853+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): load_dataframe_into_postgresql> on 2023-10-22 08:38:23.431099+00:00
+[2023-10-22T08:38:40.859+0000] {standard_task_runner.py:57} INFO - Started process 488 to run task
+[2023-10-22T08:38:40.864+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'etl_day18', 'load_dataframe_into_postgresql', 'manual__2023-10-22T08:38:23.431099+00:00', '--job-id', '166', '--raw', '--subdir', 'DAGS_FOLDER/ETL_day18.py', '--cfg-path', '/tmp/tmpqwv29ziy']
+[2023-10-22T08:38:40.868+0000] {standard_task_runner.py:85} INFO - Job 166: Subtask load_dataframe_into_postgresql
+[2023-10-22T08:38:40.927+0000] {task_command.py:415} INFO - Running <TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:38:23.431099+00:00 [running]> on host 90cf752d844d
+[2023-10-22T08:38:41.030+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='kel11' AIRFLOW_CTX_DAG_ID='etl_day18' AIRFLOW_CTX_TASK_ID='load_dataframe_into_postgresql' AIRFLOW_CTX_EXECUTION_DATE='2023-10-22T08:38:23.431099+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-10-22T08:38:23.431099+00:00'
+[2023-10-22T08:38:41.085+0000] {base.py:73} INFO - Using connection ID 'postgresql_db' for task execution.
+[2023-10-22T08:38:41.088+0000] {logging_mixin.py:151} INFO - Engine(postgresql://diwahsap:***@ep-falling-leaf-21500535.ap-southeast-1.aws.neon.tech:5432/dibimbing?__extra__=%7B%7D)
+[2023-10-22T08:38:41.788+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_day18.py", line 101, in load_dataframe_into_postgresql
+    df.to_sql('public.latest',
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1910, in to_sql
+    table = self.prep_table(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1802, in prep_table
+    raise ValueError(f"The type of {col} is not a SQLAlchemy type")
+ValueError: The type of lastUpdated is not a SQLAlchemy type
+[2023-10-22T08:38:41.807+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=etl_day18, task_id=load_dataframe_into_postgresql, execution_date=20231022T083823, start_date=20231022T083840, end_date=20231022T083841
+[2023-10-22T08:38:41.832+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 166 for task load_dataframe_into_postgresql (The type of lastUpdated is not a SQLAlchemy type; 488)
+[2023-10-22T08:38:41.883+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-10-22T08:38:41.901+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

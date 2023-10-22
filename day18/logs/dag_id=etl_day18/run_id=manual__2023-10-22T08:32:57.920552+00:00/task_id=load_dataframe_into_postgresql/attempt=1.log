@@ -1,0 +1,104 @@
+[2023-10-22T08:33:18.979+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:32:57.920552+00:00 [queued]>
+[2023-10-22T08:33:18.995+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:32:57.920552+00:00 [queued]>
+[2023-10-22T08:33:18.995+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-10-22T08:33:19.010+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): load_dataframe_into_postgresql> on 2023-10-22 08:32:57.920552+00:00
+[2023-10-22T08:33:19.015+0000] {standard_task_runner.py:57} INFO - Started process 350 to run task
+[2023-10-22T08:33:19.020+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'etl_day18', 'load_dataframe_into_postgresql', 'manual__2023-10-22T08:32:57.920552+00:00', '--job-id', '154', '--raw', '--subdir', 'DAGS_FOLDER/ETL_day18.py', '--cfg-path', '/tmp/tmp6ascw9bd']
+[2023-10-22T08:33:19.024+0000] {standard_task_runner.py:85} INFO - Job 154: Subtask load_dataframe_into_postgresql
+[2023-10-22T08:33:19.119+0000] {task_command.py:415} INFO - Running <TaskInstance: etl_day18.load_dataframe_into_postgresql manual__2023-10-22T08:32:57.920552+00:00 [running]> on host 90cf752d844d
+[2023-10-22T08:33:19.242+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='kel11' AIRFLOW_CTX_DAG_ID='etl_day18' AIRFLOW_CTX_TASK_ID='load_dataframe_into_postgresql' AIRFLOW_CTX_EXECUTION_DATE='2023-10-22T08:32:57.920552+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-10-22T08:32:57.920552+00:00'
+[2023-10-22T08:33:19.314+0000] {base.py:73} INFO - Using connection ID 'postgresql_db' for task execution.
+[2023-10-22T08:33:19.316+0000] {logging_mixin.py:151} INFO - Engine(postgresql://diwahsap:***@ep-falling-leaf-21500535.ap-southeast-1.aws.neon.tech:5432/dibimbing?__extra__=%7B%7D)
+[2023-10-22T08:33:22.551+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InsufficientPrivilege: permission denied for schema public
+LINE 2: CREATE TABLE "public.latest" (
+                     ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_day18.py", line 101, in load_dataframe_into_postgresql
+    df.to_sql('public.latest', "postgresql://diwahsap:Yj7lGFtyH3sQ@ep-falling-leaf-21500535.ap-southeast-1.aws.neon.tech/dibimbing", if_exists='replace', index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1910, in to_sql
+    table = self.prep_table(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1814, in prep_table
+    table.create()
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 914, in create
+    self._execute_create()
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 900, in _execute_create
+    self.table.create(bind=self.pd_sql.con)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/schema.py", line 962, in create
+    bind._run_ddl_visitor(ddl.SchemaGenerator, self, checkfirst=checkfirst)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2221, in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/visitors.py", line 524, in traverse_single
+    return meth(obj, **kw)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/ddl.py", line 899, in visit_table
+    self.connection.execute(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/ddl.py", line 80, in _execute_on_connection
+    return connection._execute_ddl(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1477, in _execute_ddl
+    ret = self._execute_context(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InsufficientPrivilege) permission denied for schema public
+LINE 2: CREATE TABLE "public.latest" (
+                     ^
+
+[SQL: 
+CREATE TABLE "public.latest" (
+	location TEXT, 
+	country TEXT, 
+	city TEXT, 
+	parameter TEXT, 
+	value FLOAT(53), 
+	unit TEXT, 
+	"lastUpdated" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2023-10-22T08:33:22.578+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=etl_day18, task_id=load_dataframe_into_postgresql, execution_date=20231022T083257, start_date=20231022T083318, end_date=20231022T083322
+[2023-10-22T08:33:22.596+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 154 for task load_dataframe_into_postgresql ((psycopg2.errors.InsufficientPrivilege) permission denied for schema public
+LINE 2: CREATE TABLE "public.latest" (
+                     ^
+
+[SQL: 
+CREATE TABLE "public.latest" (
+	location TEXT, 
+	country TEXT, 
+	city TEXT, 
+	parameter TEXT, 
+	value FLOAT(53), 
+	unit TEXT, 
+	"lastUpdated" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405); 350)
+[2023-10-22T08:33:22.615+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-10-22T08:33:22.635+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check
